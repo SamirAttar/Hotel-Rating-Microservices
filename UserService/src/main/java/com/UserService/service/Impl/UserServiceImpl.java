@@ -8,6 +8,7 @@ import com.UserService.DAO.UserDAO;
 import com.UserService.model.User;
 import com.UserService.service.UserService;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+
         return userDAO.save(user);
 
     }
@@ -43,6 +45,7 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteById(id);
     }
 
+    @Override
     public User updateUser(Integer id, User user) {
         return userDAO.findById(id)
                 .map(existingPerson -> {

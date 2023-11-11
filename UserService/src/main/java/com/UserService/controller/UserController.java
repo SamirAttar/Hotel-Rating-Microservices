@@ -59,7 +59,6 @@ public class UserController {
         User newUser = userService.updateUser(id, user);
 
         return new ResponseEntity<>(newUser, HttpStatus.OK);
-
     }
 
     //http://localhost:8089/user/delete/1
@@ -68,7 +67,6 @@ public class UserController {
 
         userService.deleteUser(id);
         return new ResponseEntity<>("Data is deleted", HttpStatus.GONE);
-
     }
 
 }
