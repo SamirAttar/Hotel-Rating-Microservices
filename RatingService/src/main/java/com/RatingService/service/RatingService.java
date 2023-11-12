@@ -20,7 +20,7 @@ public interface RatingService {
     public List<Rating>getAllRating();
     
     //getAll By Rtaing By Using UserId
-    public List<Rating>getRatingByUserId(Integer userId);
+    //public List<Rating>getRatingByUserId(Integer userid);
     
     
     //get all rating by user id

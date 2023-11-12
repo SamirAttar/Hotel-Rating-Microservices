@@ -33,12 +33,12 @@ public class RatingServiceImpl implements RatingService {
         return rating;
     }
 
-    @Override
-    public List<Rating> getRatingByUserId(Integer userId) {
-        List<Rating> findByUserId = ratingDAO.findByUserId(userId);
-        return findByUserId;
-
-    }
+//    @Override
+//    public List<Rating> getRatingByUserId(Integer userid) {
+//        List<Rating> findByUserId = ratingDAO.findByUserId(userid);
+//        return findByUserId;
+//
+//    }
 
     @Override
     public List<Rating> getRatingByhotelId(Integer hotelId) {
