@@ -30,7 +30,7 @@ public class Rating implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ratingId;
-    private Integer id;
+    private Integer Userid;
     private Integer hotelId;
     private Integer rating;
     private String feedBack;
