@@ -35,19 +35,21 @@ public class RatingController {
         return new ResponseEntity<>(newRating, HttpStatus.OK);
     }
 
+    @GetMapping("/get")
     public List<Rating> getAllRating() {
         List<Rating> allRating = ratingService.getAllRating();
 
         return allRating;
     }
 
-    @GetMapping("/get/{userId}")
-    public List<Rating> getByUserId(@PathVariable Integer userId) {
-        List<Rating> ratingByUserId = ratingService.getRatingByUserId(userId);
+//    @GetMapping("/get/{userid}")
+//    public List<Rating> getByUserId(@PathVariable Integer userid) {
+//        List<Rating> ratingByUserId = ratingService.getRatingByUserId(userid);
+//
+//        return ratingByUserId;
+//    }
 
-        return ratingByUserId;
-    }
-
+    @GetMapping("/get/hotel/{hotelId}")
     public List<Rating> getByHotelId(@PathVariable Integer hotelId) {
 
         List<Rating> ratingByhotelId = ratingService.getRatingByhotelId(hotelId);
