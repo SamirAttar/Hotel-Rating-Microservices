@@ -17,16 +17,14 @@ import org.springframework.stereotype.Service;
  * @author 91976
  */
 @Service
-public class RatingServiceImpl implements RatingService{
-    
-    
-    
+public class RatingServiceImpl implements RatingService {
+
     @Autowired
     private RatingDAO ratingDAO;
 
     @Override
     public Rating createRating(Rating rating) {
-       return ratingDAO.save(rating);
+        return ratingDAO.save(rating);
     }
 
     @Override
@@ -37,12 +35,15 @@ public class RatingServiceImpl implements RatingService{
 
     @Override
     public List<Rating> getRatingByUserId(Integer userId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Rating> findByUserId = ratingDAO.findByUserId(userId);
+        return findByUserId;
+
     }
 
     @Override
     public List<Rating> getRatingByhotelId(Integer hotelId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Rating> findByHotelId = ratingDAO.findByHotelId(hotelId);
+        return findByHotelId;
     }
-    
+
 }

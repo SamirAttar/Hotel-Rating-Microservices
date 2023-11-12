@@ -5,12 +5,16 @@
 package com.RatingService.DAO;
 
 import com.RatingService.model.Rating;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author 91976
  */
-public interface RatingDAO extends JpaRepository<Rating, Integer>{
-    
+public interface RatingDAO extends JpaRepository<Rating, Integer> {
+
+    List<Rating> findByUserId(Integer userId);
+
+    List<Rating> findByHotelId(Integer hotelId);
 }
