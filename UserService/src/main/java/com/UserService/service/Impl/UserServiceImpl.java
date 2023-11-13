@@ -5,10 +5,14 @@
 package com.UserService.service.Impl;
 
 import com.UserService.DAO.UserDAO;
+import com.UserService.model.Rating;
 import com.UserService.model.User;
 import com.UserService.service.UserService;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,10 +27,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
-    
     @Autowired
-    private RestTemplate RestTemplate;
+    private RestTemplate restTemplate;
     
+    
+   private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
+
+      
     
     @Override
     public User createUser(User user) {
@@ -43,7 +50,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        return userDAO.findById(id).orElse(null);
+        User user = userDAO.findById(id).orElse(null);
+        //fetch rating by above userId
+        //http://localhost:8094/rating/get/user/2
+        ArrayList<Rating> forObject = restTemplate.getForObject("http://localhost:8094/rating/get/user/"+user.getId(), ArrayList.class);
+        logger.info("{}",forObject);
+        
+        user.setRatings(forObject);
+        return user;
     }
 
     @Override
