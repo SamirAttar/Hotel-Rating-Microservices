@@ -26,6 +26,9 @@ public class Rating implements Serializable {
     private Integer hotelId;
     private Integer rating;
     private String feedBack;
+  
+    
+    
 
     public Rating(Integer ratingId, Integer userId, Integer hotelId, Integer rating, String feedBack) {
         this.ratingId = ratingId;

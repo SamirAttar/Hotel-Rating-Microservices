@@ -13,17 +13,14 @@ import lombok.Setter;
  *
  * @author 91976
  */
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rating {
-    
-    private Integer ratingId;
-    private Integer id;
-    private Integer hotelId;
-    private Integer rating;
-    private String feedBack;
-    private Hotel hotel;
+@Getter
+@Setter        
+public class Hotel {
 
+    private Integer hotelId;
+    private String name;
+    private String location;
+    private String about;
 }

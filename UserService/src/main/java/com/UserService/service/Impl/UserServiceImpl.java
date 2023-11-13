@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.UserService.model.Hotel;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,12 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RestTemplate restTemplate;
-    
-    
-   private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
-      
-    
+    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Override
     public User createUser(User user) {
 
@@ -53,10 +53,25 @@ public class UserServiceImpl implements UserService {
         User user = userDAO.findById(id).orElse(null);
         //fetch rating by above userId
         //http://localhost:8094/rating/get/user/2
-        ArrayList<Rating> forObject = restTemplate.getForObject("http://localhost:8094/rating/get/user/"+user.getId(), ArrayList.class);
-        logger.info("{}",forObject);
+        Rating[] forObject = restTemplate.getForObject("http://localhost:8094/rating/get/user/" + user.getId(), Rating[].class);
+        logger.info("{}", forObject);
+
         
-        user.setRatings(forObject);
+        List<Rating> ratings = Arrays.stream(forObject).toList();
+        
+        
+        List<Rating> ratingList = ratings.stream().map(rating -> {
+
+            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://localhost:8091/hotel/get/" + rating.getHotelId(), Hotel.class);
+            Hotel hotel = forEntity.getBody();
+            logger.info("response status code:{}", forEntity.getStatusCode());
+
+            rating.setHotel(hotel);
+            return rating;
+
+        }).collect(Collectors.toList());
+
+        user.setRatings(ratingList);
         return user;
     }
 
