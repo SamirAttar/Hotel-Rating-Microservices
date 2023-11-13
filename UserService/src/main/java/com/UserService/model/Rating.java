@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor        
-class Rating {
+public class Rating {
     
     private Integer ratingId;
     private Integer id;
