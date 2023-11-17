@@ -15,6 +15,7 @@ import javax.persistence.Table;
  *
  * @author 91976
  */
+
 @Entity
 @Table(name = "m_rating")
 public class Rating implements Serializable {

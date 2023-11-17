@@ -7,6 +7,7 @@ package com.HotelService.HotelService.Controller;
 import com.HotelService.HotelService.Model.Hotel;
 import com.HotelService.HotelService.service.HotelService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/hotel")
+@Slf4j
 public class HotelController {
 
     @Autowired
@@ -33,6 +35,7 @@ public class HotelController {
     //http://localhost:8091/hotel/save
     @PostMapping("/save")
     public ResponseEntity<Hotel> saveHotel(@RequestBody Hotel hotel) {
+        log.info("HotelController :: saveHotel method is executed");
         Hotel saveHotel = hotelService.saveHotel(hotel);
 
         return new ResponseEntity<>(saveHotel, HttpStatus.OK);
@@ -41,6 +44,7 @@ public class HotelController {
 
     @GetMapping("/get")
     public List<Hotel> getAllHotel() {
+         log.info("HotelController :: getAllHotel method is executed");
         List<Hotel> allHotel = hotelService.getAllHotel();
 
         return allHotel;
@@ -48,6 +52,7 @@ public class HotelController {
 
     @GetMapping("/get/{hotelId}")
     public ResponseEntity<Hotel> getById(@PathVariable Integer hotelId) {
+        log.info("HotelController :: getById method is executed");
 
         Hotel hotel = hotelService.getHotelById(hotelId);
         return new ResponseEntity<>(hotel, HttpStatus.OK);
@@ -55,12 +60,14 @@ public class HotelController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Hotel> updateHotel(@PathVariable Integer id, @RequestBody Hotel hotel) {
+         log.info("HotelController :: updateHotel method is executed");
         Hotel updateUser = hotelService.updateUser(id, hotel);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deletHotel(@PathVariable Integer id) {
+         log.info("HotelController :: deletHotel method is executed");
         hotelService.deleteHotel(id);
 
         return new ResponseEntity<>("Data is deleted", HttpStatus.OK);
