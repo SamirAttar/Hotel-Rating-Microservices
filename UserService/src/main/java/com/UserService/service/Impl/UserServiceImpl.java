@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+//    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public User createUser(User user) {
@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
         User user = userDAO.findById(id).orElse(null);
         //fetch rating by above userId
         //http://localhost:8094/rating/get/user/2
-        Rating[] forObject = restTemplate.getForObject("http://localhost:8094/rating/get/user/" + user.getId(), Rating[].class);
-        logger.info("{}", forObject);
+        Rating[] forObject = restTemplate.getForObject("http://RATING-SERVICE/rating/get/user/" + user.getId(), Rating[].class);
+      //  logger.info("{}", forObject);
 
         
         List<Rating> ratings = Arrays.stream(forObject).toList();
@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService {
         
         List<Rating> ratingList = ratings.stream().map(rating -> {
 
-            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://localhost:8091/hotel/get/" + rating.getHotelId(), Hotel.class);
+            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotel/get/" + rating.getHotelId(), Hotel.class);
             Hotel hotel = forEntity.getBody();
-            logger.info("response status code:{}", forEntity.getStatusCode());
+           // logger.info("response status code:{}", forEntity.getStatusCode());
 
             rating.setHotel(hotel);
             return rating;
