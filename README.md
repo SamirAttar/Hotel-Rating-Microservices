@@ -206,3 +206,70 @@ Hotel hotel = hotelService.getHotel(rating.getHotelId());
 
 6. Run your application that should be runn smothly. The test API in USER-SERVICES getById in postmam. That should be work smothly.
 
+---------------------------------------------------
+
+# F) API Gatway:
+
+
+API Gateway is a component of microservices architecture that serves as the single entry point for all clients, managing access to backend microservices.
+Here we dont need to call every service by using different ports and names.
+The API Gateway is a server. It is a single entry point into a system. API Gateway encapsulates the internal system architecture. It provides an API that is tailored to each client. It also has other responsibilities such as authentication, monitoring, load balancing, caching, request shaping and management, and static response handling. 
+
+
+1) Add dependencies as : Cloud BootStrap, Gatway, WebFlux/webFlux and eureka discovery client 
+
+<dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-gateway</artifactId>
+    </dependency>
+
+<dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter</artifactId>
+    </dependency>
+
+
+<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+
+
+
+ <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+
+2) Add @EnableEurekaClient annotation in starting point of project.
+
+3) Configure applicatin.properties as :
+
+server.port:8097
+
+
+spring.application.name:API_GATEWAY
+
+
+#MicroSErvice Configration
+eureka.client.fetch-registry=true
+eureka.instance.prefer-ip-address=true
+eureka.client.register-with-eureka=true
+
+# Register the server as a client to itself
+eureka.client.service-url.defaultZone=http://localhost:8093/eureka
+
+# Basic configuration for Spring Cloud Gateway
+spring.cloud.gateway.routes[0].id=USER_SERVICE
+spring.cloud.gateway.routes[0].uri= lb://USER_SERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/user/**
+#spring.cloud.gateway.routes[0].filters[0]=AddRequestHeader=HeaderName,HeaderValue
+
+spring.cloud.gateway.routes[0].id=HOTEL_SERVICE
+spring.cloud.gateway.routes[0].uri= lb://HOTEL_SERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/hotel/**
+
+spring.cloud.gateway.routes[0].id=RATING_SERVICE
+spring.cloud.gateway.routes[0].uri= lb://RATING_SERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/rating/**
+
