@@ -52,6 +52,5 @@ public class RatingServiceImpl implements RatingService{
         List<Rating> findByHotelId = ratingDAO.findByHotelId(hotelId);
         return findByHotelId;
     }
-
     
 }

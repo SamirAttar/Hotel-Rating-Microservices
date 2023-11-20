@@ -12,19 +12,15 @@ import java.util.List;
  * @author 91976
  */
 public interface UserService {
-    
-    
+
     public User createUser(User user);
-    
-    
+
     List<User> getAllUser();
-    
+
     User getUserById(Integer id);
-    
- //   public User updateUser(User user) ;
-    
-    
+
+    //   public User updateUser(User user) ;
     public void deleteUser(Integer id);
-    
-       public User updateUser(Integer id, User user);
+
+    public User updateUser(Integer id, User user);
 }
