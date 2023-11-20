@@ -5,6 +5,7 @@
 package com.UserService.service.Impl;
 
 import com.UserService.DAO.UserDAO;
+import com.UserService.externalService.HotelService;
 import com.UserService.model.Rating;
 import com.UserService.model.User;
 import com.UserService.service.UserService;
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RestTemplate restTemplate;
+    
+    @Autowired
+    private HotelService hotelService;
 
 //    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -62,8 +66,8 @@ public class UserServiceImpl implements UserService {
         
         List<Rating> ratingList = ratings.stream().map(rating -> {
 
-            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotel/get/" + rating.getHotelId(), Hotel.class);
-            Hotel hotel = forEntity.getBody();
+        //    ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotel/get/" + rating.getHotelId(), Hotel.class);
+            Hotel hotel = hotelService.getHotel(rating.getHotelId());
            // logger.info("response status code:{}", forEntity.getStatusCode());
 
             rating.setHotel(hotel);
