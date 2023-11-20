@@ -144,5 +144,20 @@ As follows:
 
 ------------------------------------------------------------------
 
+# D) Replecing Host and Port of Microservices:
 
-   
+Here we are removing host and port form url. Instaed of host and port we can use service name that is register in eureka server for example HOTEL_SERVICE, RATING_SERVICE in service method.Follow following steps 
+
+1.configure application.properties correctly as
+
+	eureka.ribbon.eureka.enabled= true
+	This configuration tells Ribbon to use Eureka Server for load balancing. Make sure to replace "http://localhost:8761/eureka/" with the actual URL of your Eureka Server.
+
+
+2. Add anotaion as @LoadBalanced over the restTemplate method in starting point of our project.
+
+3. Replace localhost and port from service method of UserService with the name of that url service. Which is registred in eureka server.
+
+Run userService application, it will work.
+
+----------------------------------------------------------------   
