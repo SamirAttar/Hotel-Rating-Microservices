@@ -161,3 +161,48 @@ Here we are removing host and port form url. Instaed of host and port we can use
 Run userService application, it will work.
 
 ----------------------------------------------------------------   
+
+
+# E) Feign Client:
+
+1.It is alternate way of restTemplate.
+Feign is a declarative HTTP client for Java applications. It was developed by Netflix to make it easier for developers to write Java HTTP clients for their services.
+In the context of Spring Cloud, Feign allows you to write an interface that defines HTTP requests to other services in your application. Feign will then automatically generate an implementation of that interface at runtime. This allows you to write simple and concise code to make HTTP requests.
+
+2. Add dependency in pom.xml as OpenFiegn
+
+   <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+
+3. Go Starting point of your project and add annotaion as @EnableFeignClients
+
+4.For simple understanding create separet pakage as exrenalService. In that service create Interface called as HotelService (boz here we using hotel service http request for getById as follows). Also parallely add annoataions as @FeignClient(name="HOTEL-SERVICE")(put correct name that should be register with eureka server). In that craete method for get with requred parameters as follows
+
+
+import com.UserService.model.Hotel;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name="HOTEL-SERVICE")
+public interface HotelService {
+
+    @GetMapping("/hotel/get/{hotelId}")
+    Hotel getHotel(@PathVariable Integer hotelId);
+
+}
+
+
+5. Now open serviceImpl class from userServiceImpl and comment out restTempalte call thet we craeted earlyer and modify as follows. Also inject @utowired of HoteService as,
+
+    @Autowired
+    private HotelService hotelService;
+
+Hotel hotel = hotelService.getHotel(rating.getHotelId());
+
+  rating.setHotel(hotel);
+
+6. Run your application that should be runn smothly. The test API in USER-SERVICES getById in postmam. That should be work smothly.
+
