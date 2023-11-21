@@ -279,3 +279,75 @@ We can configure API gatway application.properties as follows (assume in hotel a
 spring.cloud.gateway.routes[0].predicates[0]=Path=/hotel/**,/staff/**
 or 
 spring.cloud.gateway.routes[0].predicates[0]=Path=/**
+
+
+---------------------------------------------------------
+
+# G) Config Server 
+
+It is mainly used for common configration.
+In a microservices architecture, a config server plays a crucial role. It centralizes the configuration of all services in a system.
+The Config Server uses a version control system (such as Git) to manage configurations. This ensures traceability, versioning, and reliability.
+
+
+1. Add dependencys as Config Server and Eureka Discovery Clint as follows
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-config-server</artifactId>
+    </dependency>
+
+   <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+
+2. Add @EnableConfigServer in starting point of our project. 
+
+
+3. Before that alway create config server repository in git hub. Bcoz the uri of that git repository we have to put in application.properties file.
+
+
+ Parrlely configure application.properties as follows
+
+
+server.port=8093
+spring.application.name: CONFIG-SERVER
+spring.cloud.config.server.bootstrap=true
+spring.cloud.config.server.git.uri: https://github.com/samirAttar/ConfigServer-Hote-Rating
+
+#MicroSErvice Configration
+eureka.client.fetch-registry=true
+eureka.instance.prefer-ip-address=true
+eureka.client.register-with-eureka=true
+
+# Register the server as a client to itself
+eureka.client.service-url.defaultZone=http://localhost:9099/eureka
+
+
+----------------------------------
+
+H) Implimentation of config clint
+
+
+
+1.In ordere to impliment in othere services. Open user service.
+2.Go in the pom.xml file. Add dependency as Config Client
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+
+Configure application.properties as 
+
+	spring.config.import= configserver:http://localhost:8093
+
+ (port number should be configServer port number)
+
+
+3. After that in application.properties you can comment earlier eureka configration. Becoz it will automatically import the configration from git server.
+
+
+
+
