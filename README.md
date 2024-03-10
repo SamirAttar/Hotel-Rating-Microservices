@@ -47,7 +47,7 @@ eureka.client.fetch-registry=false
 server.port=8092
 
 4. Now run application and In chrome put localhost:8083
-   Here yiu will get eureka server UI.
+   Here you will get eureka server UI.
 
 ---------------------------------------------------
 
@@ -89,7 +89,7 @@ eureka.client.service-url.defaultZone=http://localhost:8093/eureka
 
 spring.application.name:RATING_SERVICE
 
-3. Add @EnableEurekaClient i strting point of application.
+3. Add @EnableEurekaClient at strting point of application.
 
 
 After doing all this configration your service will get register with eureka server.
