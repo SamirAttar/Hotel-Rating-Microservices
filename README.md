@@ -9,9 +9,9 @@ Note:
 Make sure we are using this versions in every microservice.
 ------------------------------------------------------------
 
- # First create applications according to requirment.
+ First create applications according to requirment.
 
- # A)  Service Registry / Discovery server
+ A)  Service Registry / Discovery server
  
 1. Here we impliment eureka server.
 Here we created spring boot project called as ServiceRegistry.
@@ -35,12 +35,14 @@ public class ServiceRegistryApplication {
 
 3. Configure application.properties
 
-# Set the service name and instance hostname
+Set the service name and instance hostname
+
 eureka.instance.hostname=localhost
 eureka.instance.prefer-ip-address=false
 eureka.instance.instance-id=${spring.application.name}:${server.port}
 
-# Disable registration and make this server a client to itself
+Disable registration and make this server a client to itself
+
 eureka.client.register-with-eureka=false
 eureka.client.fetch-registry=false
 
@@ -51,7 +53,7 @@ server.port=8092
 
 ---------------------------------------------------
 
-# B) Register applications with eureka server
+B) Register applications with eureka server
 
 1. In order to register othere services with service registery add this dependency and configure application. properties file as follow
 
@@ -79,12 +81,13 @@ Add this dependency below java version
 
 2.Configure application.properties 
 
-#MicroSErvice Configration
+MicroService Configration
+
 eureka.client.fetch-registry=true
 eureka.instance.prefer-ip-address=true
 eureka.client.register-with-eureka=true
 
-# Register the server as a client to itself
+Register the server as a client to itself
 eureka.client.service-url.defaultZone=http://localhost:8093/eureka
 
 spring.application.name:RATING_SERVICE
@@ -96,7 +99,7 @@ After doing all this configration your service will get register with eureka ser
 
 ------------------------------------------------
 
-# C) How to do communication between microservices:
+C) How to do communication between microservices:
 
 1.In this concept we are going to use RestTemplate. For this first we have to create RestTemplate bean in starting point of our project (also we can create seprate class as config. In that class add annotation as @Configration and create bean).
 
@@ -151,7 +154,7 @@ As follows:
 
 ------------------------------------------------------------------
 
-# D) Replecing Host and Port of Microservices:
+D) Replecing Host and Port of Microservices:
 
 Here we are removing host and port form url. Instaed of host and port we can use service name that is register in eureka server for example HOTEL_SERVICE, RATING_SERVICE in service method.Follow following steps 
 
@@ -170,7 +173,7 @@ Run userService application, it will work.
 ----------------------------------------------------------------   
 
 
-# E) Feign Client:
+E) Feign Client:
 
 1.It is alternate way of restTemplate.
 Feign is a declarative HTTP client for Java applications. It was developed by Netflix to make it easier for developers to write Java HTTP clients for their services.
@@ -215,7 +218,7 @@ Hotel hotel = hotelService.getHotel(rating.getHotelId());
 
 ---------------------------------------------------
 
-# F) API Gatway:
+F) API Gatway:
 
 
 API Gateway is a component of microservices architecture that serves as the single entry point for all clients, managing access to backend microservices.
@@ -258,15 +261,17 @@ server.port:8097
 spring.application.name:API_GATEWAY
 
 
-#MicroSErvice Configration
+MicroService Configration
 eureka.client.fetch-registry=true
 eureka.instance.prefer-ip-address=true
 eureka.client.register-with-eureka=true
 
-# Register the server as a client to itself
+Register the server as a client to itself
+
 eureka.client.service-url.defaultZone=http://localhost:8093/eureka
 
-# Basic configuration for Spring Cloud Gateway
+Basic configuration for Spring Cloud Gateway
+
 spring.cloud.gateway.routes[0].id=USER_SERVICE
 spring.cloud.gateway.routes[0].uri= lb://USER_SERVICE
 spring.cloud.gateway.routes[0].predicates[0]=Path=/user/**
@@ -290,7 +295,7 @@ spring.cloud.gateway.routes[0].predicates[0]=Path=/**
 
 ---------------------------------------------------------
 
-# G) Config Server 
+G) Config Server 
 
 It is mainly used for common configration.
 In a microservices architecture, a config server plays a crucial role. It centralizes the configuration of all services in a system.
@@ -328,7 +333,7 @@ eureka.client.fetch-registry=true
 eureka.instance.prefer-ip-address=true
 eureka.client.register-with-eureka=true
 
-# Register the server as a client to itself
+Register the server as a client to itself
 eureka.client.service-url.defaultZone=http://localhost:9099/eureka
 
 
