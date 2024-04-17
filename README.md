@@ -205,7 +205,7 @@ public interface HotelService {
 }
 
 
-5. Now open serviceImpl class from userServiceImpl and comment out restTempalte call thet we craeted earlyer and modify as follows. Also inject @utowired of HoteService as,
+5. Now open serviceImpl class from userServiceImpl and comment out restTempalte call thet we created earlyer and modify as follows. Also inject @Autowired of HoteService as,
 
     @Autowired
     private HotelService hotelService;
