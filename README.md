@@ -228,25 +228,22 @@ The API Gateway is a server. It is a single entry point into a system. API Gatew
 
 1) Add dependencies as : Cloud BootStrap, Gatway, WebFlux/webFlux and eureka discovery client 
 
-<dependency>
+   <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-gateway</artifactId>
     </dependency>
 
-<dependency>
+    <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter</artifactId>
     </dependency>
 
-
-<dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
 
-
-
- <dependency>
+   <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     </dependency>
