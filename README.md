@@ -1,7 +1,3 @@
-<span style="font-family: Arial; font-size: 1.2em;"># Hotel-Rating-Microservices
-In this project we are created userService, ratingService and hotelService
-** This is step by step implimentation of microservices and configration.**</span>
-
 
 # Hotel-Rating-Microservices
 In this project we are created userService, ratingService and hotelService
