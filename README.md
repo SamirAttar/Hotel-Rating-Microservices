@@ -1,16 +1,16 @@
 
 # Hotel-Rating-Microservices
+
 In this project we are created userService, ratingService and hotelService
 ** This is step by step implimentation of microservices and configration.**
 
------------------------------------------------------------
+
 Note: 
 1.Here for every service we are using Spring boot version is  <version>2.7.17</version> 
 2.Java Version is   <java.version>1.8</java.version>
 
-Sure we are using this versions in every microservice.
+Make Sure are using this versions in every microservice.
 
-------------------------------------------------------------
 
  First create applications according to requirment.
 
@@ -54,7 +54,6 @@ server.port=8092
 4. Now run application and In chrome put localhost:8083
    Here you will get eureka server UI.
 
----------------------------------------------------
 
 **B) Register applications with eureka server**
 
@@ -100,7 +99,7 @@ spring.application.name:RATING_SERVICE
 
 After doing all this configration your service will get register with eureka server.
 
-------------------------------------------------
+
 
 **C) How to do communication between microservices:**
 
@@ -155,7 +154,6 @@ As follows:
 
 3. Then when we are going to call url from postman we will get user data as well as rating and hotel data that will come from other microservice application.
 
-------------------------------------------------------------------
 
 **D) Replecing Host and Port of Microservices:**
 
@@ -173,7 +171,6 @@ Here we are removing host and port form url. Instaed of host and port we can use
 
 Run userService application, it will work.
 
-----------------------------------------------------------------   
 
 
 **E) Feign Client:**
@@ -219,7 +216,7 @@ Hotel hotel = hotelService.getHotel(rating.getHotelId());
 
 6. Run your application that should be runn smothly. The test API in USER-SERVICES getById in postmam. That should be work smothly.
 
----------------------------------------------------
+
 
 **F) API Gatway:**
 
@@ -293,7 +290,7 @@ or
 spring.cloud.gateway.routes[0].predicates[0]=Path=/**
 
 
----------------------------------------------------------
+
 
 **G) Config Server:**
 
@@ -337,7 +334,7 @@ Register the server as a client to itself
 eureka.client.service-url.defaultZone=http://localhost:9099/eureka
 
 
-----------------------------------
+
 
 **H) Implimentation of config clint:**
 
@@ -359,7 +356,3 @@ Configure application.properties as
 
 
 3. After that in application.properties you can comment earlier eureka configration. Becoz it will automatically import the configration from git server.
-
-
-
-
