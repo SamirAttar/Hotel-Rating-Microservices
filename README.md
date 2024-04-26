@@ -8,7 +8,8 @@ Note:
 1.Here for every service we are using Spring boot version is  <version>2.7.17</version> 
 2.Java Version is   <java.version>1.8</java.version>
 
-Make sure we are using this versions in every microservice.
+Sure we are using this versions in every microservice.
+
 ------------------------------------------------------------
 
  First create applications according to requirment.
