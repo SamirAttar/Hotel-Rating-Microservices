@@ -274,13 +274,13 @@ spring.cloud.gateway.routes[0].uri= lb://USER_SERVICE
 spring.cloud.gateway.routes[0].predicates[0]=Path=/user/**
 #spring.cloud.gateway.routes[0].filters[0]=AddRequestHeader=HeaderName,HeaderValue
 
-spring.cloud.gateway.routes[0].id=HOTEL_SERVICE
-spring.cloud.gateway.routes[0].uri= lb://HOTEL_SERVICE
-spring.cloud.gateway.routes[0].predicates[0]=Path=/hotel/**
+spring.cloud.gateway.routes[1].id=HOTEL_SERVICE
+spring.cloud.gateway.routes[1].uri=lb://HOTEL_SERVICE
+spring.cloud.gateway.routes[1].predicates[0]=Path=/hotel/**
 
-spring.cloud.gateway.routes[0].id=RATING_SERVICE
-spring.cloud.gateway.routes[0].uri= lb://RATING_SERVICE
-spring.cloud.gateway.routes[0].predicates[0]=Path=/rating/**
+spring.cloud.gateway.routes[2].id=RATING_SERVICE
+spring.cloud.gateway.routes[2].uri=lb://RATING_SERVICE
+spring.cloud.gateway.routes[2].predicates[0]=Path=/rating/**
 
 // Assume in one applicatio consist multiple services with multiple url name. In this condition if we want to call that controller through API gatway. 
 We can configure API gatway application.properties as follows (assume in hotel application consist another controller as staff)
