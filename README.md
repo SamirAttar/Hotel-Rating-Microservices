@@ -282,8 +282,8 @@ spring.cloud.gateway.routes[2].id=RATING_SERVICE
 spring.cloud.gateway.routes[2].uri=lb://RATING_SERVICE
 spring.cloud.gateway.routes[2].predicates[0]=Path=/rating/**
 
-// Assume in one applicatio consist multiple services with multiple url name. In this condition if we want to call that controller through API gatway. 
-We can configure API gatway application.properties as follows (assume in hotel application consist another controller as staff)
+// Assume in one application consist multiple services with multiple url name. In this condition if we want to call that controller through API gatway. 
+We can configure API gatway application.properties as follow (assume in hotel application consist another controller as staff).
 
 spring.cloud.gateway.routes[0].predicates[0]=Path=/hotel/**,/staff/**
 or 
