@@ -7,7 +7,7 @@ In this project we are created userService, ratingService and hotelService
 
 Note: 
 1.Here for every service we are using Spring boot version is  <version>2.7.17</version> 
-2.Java Version is   <java.version>1.8</java.version>
+2.Java Version is   <java.version>17</java.version>
 
 Make Sure are using this versions in every microservice.
 
