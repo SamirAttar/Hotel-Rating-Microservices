@@ -6,7 +6,9 @@ package com.RatingService.Controller;
 
 import com.RatingService.model.Rating;
 import com.RatingService.service.RatingService;
+
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * @author 91976
  */
 @RestController
@@ -30,8 +31,7 @@ public class RatingController {
 
     @Autowired
     private RatingService ratingService;
-    
-    
+
 
     //http://localhost:8092/rating/save
     @PostMapping("/save")
@@ -59,7 +59,7 @@ public class RatingController {
 
     @GetMapping("/get/hotel/{hotelId}")
     public List<Rating> getByHotelId(@PathVariable Integer hotelId) {
-          log.info("RatingController :: getByHotelId method is running");
+        log.info("RatingController :: getByHotelId method is running");
         List<Rating> ratingByhotelId = ratingService.getRatingByhotelId(hotelId);
         return ratingByhotelId;
     }

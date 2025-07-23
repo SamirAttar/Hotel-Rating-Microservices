@@ -6,7 +6,9 @@ package com.HotelService.HotelService.Controller;
 
 import com.HotelService.HotelService.Model.Hotel;
 import com.HotelService.HotelService.service.HotelService;
+
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * @author 91976
  */
 @RestController
@@ -44,7 +45,7 @@ public class HotelController {
 
     @GetMapping("/get")
     public List<Hotel> getAllHotel() {
-         log.info("HotelController :: getAllHotel method is executed");
+        log.info("HotelController :: getAllHotel method is executed");
         List<Hotel> allHotel = hotelService.getAllHotel();
 
         return allHotel;
@@ -60,14 +61,14 @@ public class HotelController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Hotel> updateHotel(@PathVariable Integer id, @RequestBody Hotel hotel) {
-         log.info("HotelController :: updateHotel method is executed");
+        log.info("HotelController :: updateHotel method is executed");
         Hotel updateUser = hotelService.updateUser(id, hotel);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deletHotel(@PathVariable Integer id) {
-         log.info("HotelController :: deletHotel method is executed");
+        log.info("HotelController :: deletHotel method is executed");
         hotelService.deleteHotel(id);
 
         return new ResponseEntity<>("Data is deleted", HttpStatus.OK);
