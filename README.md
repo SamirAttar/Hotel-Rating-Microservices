@@ -356,3 +356,80 @@ Configure application.properties as
 
 
 3. After that in application.properties you can comment earlier eureka configration. Becoz it will automatically import the configration from git server.
+
+**I) Fault Tolerance:**
+
+What is Fault Tolerance
+Fault tolerance is the ability of a system to continue functioning properly even when one or more components fail.
+
+Refer: Resilience4j CircuitBreaker Docs
+
+We can implement a circuit breaker in any microservice to achieve fault tolerance. Below is the implementation using the Resilience4j library, applied in the User Service.
+
+A. (Optional) Implementing Spring Actuator to Monitor Health
+Add dependency in pom.xml:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+Configure application.properties:
+
+management.endpoints.web.exposure.include=*
+management.endpoint.health.show-details=always
+
+* exposes all actuator endpoints. You can limit it to specific ones like health, info, etc.
+
+Run the application and access the actuator endpoints:
+
+
+http://localhost:8093/actuator
+
+
+C. Circuit Breaker Implementation using Resilience4j
+Add Resilience4j dependency in pom.xml:
+
+
+<dependency>
+    <groupId>io.github.resilience4j</groupId>
+    <artifactId>resilience4j-spring-boot2</artifactId>
+    <version>2.3.0</version>
+</dependency>
+Configure application.properties:
+
+properties
+
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.registerHealthIndicator=true
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.eventConsumerBufferSize=10
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.failureRateThreshold=50
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.minimumNumberOfCalls=5
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.automaticTransitionFromOpenToHalfOpenEnabled=true
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.waitDurationInOpenState=6s
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.permittedNumberOfCallsInHalfOpenState=3
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.slidingWindowType=COUNT_BASED
+resilience4j.circuitbreaker.instances.ratingHotelBreaker.slidingWindowSize=10
+Note: Ensure the circuit breaker name is consistent across configuration and annotation.
+
+Use @CircuitBreaker annotation in a method that calls external services (for example, getUserById):
+
+
+@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
+public ResponseEntity<User> getUserById(String userId) {
+    // Logic to fetch user with ratings and hotel info
+}
+Define the fallback method:
+
+
+public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex) {
+    log.info("Fallback is executed because service is down: {}", ex.getMessage());
+    User user = User.builder()
+            .id("12345")
+            .name("Dummy")
+            .email("dummy@gmail.com")
+            .about("This is a dummy user because some services are down")
+            .build();
+    return new ResponseEntity<>(user, HttpStatus.OK);
+}
+Make sure the fallback method signature matches the original method, with an additional Exception parameter.
+
+This configuration ensures your application remains responsive and avoids cascading failures when dependent services are unavailable. Let me know if you want a complete GitHub-ready README or working code sample.
