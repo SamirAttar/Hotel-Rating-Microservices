@@ -10,6 +10,7 @@ import com.UserService.service.UserService;
 import java.util.List;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,10 +52,15 @@ public class UserController {
 
     }
 
+    int retryCount = 1;
+
     //http://localhost:8089/user/get/1
     @GetMapping("/get/{id}")
-    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
+//    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
+    @Retry(name = " ratingHotelService", fallbackMethod = "ratingHotelFallBack")
     public ResponseEntity<User> getById(@PathVariable Integer id) {
+        log.info("retry count: {} ", retryCount);
+        retryCount++;
         User userById = userService.getUserById(id);
         log.info("user get by id is executed" + userById);
         return new ResponseEntity<>(userById, HttpStatus.OK);
@@ -64,6 +70,7 @@ public class UserController {
     // fall back method for CB
     public ResponseEntity<User> ratingHotelFallBack(Integer userId, Exception ex) {
         log.info("Fallback is executed because service is down", ex);
+
         User user = User.builder()
                 .email("dummy@gmail.com")
                 .name("dummy")
